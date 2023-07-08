@@ -19,6 +19,8 @@ const double Vc = (4/pow(rc, 12)) - (4/pow(rc, 6)); // Potential felt by two par
 
 // --- Introduction -------------------------------------------------
 
+// Adrián Marín Boyero, Física UGR
+
 /*
 
 For this code, we will store our data in a 2-dim array, data[PartN][6],
@@ -530,7 +532,7 @@ void general_algorithm(long double data[PartN][6], ofstream &output, string outp
         show++;
 
         //We update the velocities of the particles at certain timestamps to study some of the system's properties
-        increase_velocity(data, t);
+        //increase_velocity(data, t);
     }
 
     parameters_output.close();
@@ -558,11 +560,11 @@ int main()
 
     // --- Possible initial configurations -----------------------
 
-    //random_initial_distribution(data, tau);
-    square_initial_distribution(data);
+    random_initial_distribution(data, tau);
+    //square_initial_distribution(data);
     //honeycomb_initial_distribution(data);
 
-    double v_module = 0; // Module of the velocities of each particle
+    double v_module = 1; // Module of the velocities of each particle
     random_initial_velocities_module(data, tau, v_module);
 
     double initial_r_0[2];
@@ -570,7 +572,7 @@ int main()
     
     // --- Iterations and general algorithm -----------------------
 
-    int total_iterations = 50000;
+    int total_iterations = 25000;
     general_algorithm(data, output, output_name, total_iterations, initial_r_0); 
 
     return 0;
