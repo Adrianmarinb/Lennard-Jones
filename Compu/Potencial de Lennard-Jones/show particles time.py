@@ -55,7 +55,6 @@ from matplotlib import cm
 file_in = "lennard-jones-output.txt"  # Nombre del fichero de datos
 file_out = "particles"  # Nombre del fichero de salida (sin extensión)
 
-
 # Límites de los ejes X e Y
 x_min = -1
 x_max = 5
@@ -97,13 +96,13 @@ for frame_data_str in data_str.split("\n\n"):
     lines = frame_data_str.strip().split("\n")
     t_line = lines[0].strip()  # Get the first line (time line)
     if t_line:
-        t = float(t_line)  # Convert the time value to float
-        frame_data.append(t)  # Add the time to the frame data
+        t = float(t_line)  # Pasamos a float
+        frame_data.append(t)  # Añadimos el tiempo
 
-        # Iterate over the remaining lines (planet positions)
+        # Iteramos sobre el resto de líneas 
         for planet_pos_str in lines[1:]:
             planet_pos = np.fromstring(planet_pos_str, sep=",")
-            # If the line is not empty, add the planet position to the frame data
+            # Si la línea no está vacía
             if planet_pos.size > 0:
                 frame_data.append(np.fromstring(planet_pos_str, sep=","))
 
@@ -114,7 +113,7 @@ for frame_data_str in data_str.split("\n\n"):
 # Lo calculamos del primer bloque
 nplanets = len(frames_data[0]) - 1
 
-# Generate a set of colors using the viridis color map
+# Generamos los colores que queramos visualizar
 colors = cm.viridis(np.linspace(0, 1, nplanets))
 
 # Creación de la animación/gráfico
@@ -127,7 +126,7 @@ ax.axis("equal")  # Misma escala para ejes X e Y
 ax.set_xlim(x_min, x_max)
 ax.set_ylim(y_min, y_max)
 
-# Set x_label and y_label
+# Definimos x_label y y_label
 plt.xlabel('x(σ)', fontsize = 15)
 plt.ylabel('y(σ)', fontsize = 15)
 
@@ -167,12 +166,12 @@ for planet_pos, radius, color in zip(frames_data[0][1:], planet_radius, colors):
             color=planet_points[-1].get_facecolor())
         planet_trails.append(planet_trail)
 
-# Create the text element for displaying the time value
+# Creamos el texto que muestra el tiempo
 time_text = ax.text(0.07, 0.90, '', transform=ax.transAxes, fontsize=15)
 
 # Función que actualiza la posición de los planetas en la animación 
 def update(frame, frames_data, planet_points, planet_trails, show_trail):
-    # Get the time value for the current frame
+    # Valor del tiempo para el frame
     t = frames_data[frame][0]
 
     # Actualiza la posición del correspondiente a cada planeta
@@ -187,18 +186,17 @@ def update(frame, frames_data, planet_points, planet_trails, show_trail):
 
             planet_trails[j_planet].set_data(xs_new, ys_new)
 
-    # Update the time value in the text element
+    # Actualizamos el valor del tiempo
     time_text.set_text('Tiempo: {:.3f} s'.format(t))
 
     return planet_points + planet_trails + [time_text]
 
-def init_anim():
-    # Clear trails 
+def init_anim(): 
     if show_trail:
         for j_planet in range(nplanets):
             planet_trails[j_planet].set_data(list(), list())
 
-    # Update the time value in the text element
+    # Actualizamos el valor del tiempo
     t = frames_data[0][0]
     time_text.set_text('Tiempo: {:.3f} s'.format(t))
 
@@ -227,7 +225,6 @@ else:
         fig.savefig("{}.pdf".format(file_out))
     else:
         plt.show()
-    
 
 plt.subplots_adjust(
 top=0.88,

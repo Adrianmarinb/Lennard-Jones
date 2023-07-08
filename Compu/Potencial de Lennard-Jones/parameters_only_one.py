@@ -11,6 +11,9 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset, inset_axes
 import os
 print(os.getcwd())
 
+# This Python script allows us to show all the different properties and parameters for the Lennard-Jones proyect.
+# To show the desired property or parameter, the rest of the subplots are framed in /* */
+
 #-------------------------------------------------------------
 #We extract omega from .txt and remove points with no values
 
@@ -49,6 +52,7 @@ print('Standar deviation of total energy: ', std_dev)
 
 #-------------------------------------------------------------
 # Calculate the average value of velocity during a period of time
+
 start_time = 5  # Specify the start time of the period
 end_time = 30    # Specify the end time of the period
 
